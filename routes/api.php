@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +15,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::post('/login', [AuthController::class, 'login']);
+
+Route::middleware(['auth:sanctum', 'role:user'])->group(function () {
+
+    Route::get('/user/me', function (Request $request) {
+        return $request->user();
+    });
+});
+
+Route::middleware(['auth:sanctum', 'role:partner'])->group(function () {
+
+    Route::get('/partner/me', function (Request $request) {
+        return $request->user();
+    });
+});
+
+Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
+
+    Route::get('/admin/me', function (Request $request) {
+        return $request->user();
+    });
+});
+
+Route::middleware(['auth:sanctum', 'role:user,partner'])->group(function () {
+
+    // Route::get('/chat/rooms', [ChatController::class, 'rooms']);
 });

@@ -17,7 +17,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-   
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -42,22 +42,37 @@ class User extends Authenticatable
     protected $guarded = [];
 
     public function partnerProfile()
-{
-    return $this->hasOne(PartnerProfile::class);
-}
+    {
+        return $this->hasOne(PartnerProfile::class);
+    }
 
-public function customerOrders()
-{
-    return $this->hasMany(ServiceOrder::class, 'customer_id');
-}
+    public function customerOrders()
+    {
+        return $this->hasMany(ServiceOrder::class, 'customer_id');
+    }
 
-public function partnerOrders()
-{
-    return $this->hasMany(ServiceOrder::class, 'partner_id');
-}
+    public function partnerOrders()
+    {
+        return $this->hasMany(ServiceOrder::class, 'partner_id');
+    }
 
-public function payments()
-{
-    return $this->hasMany(Payment::class, 'customer_id');
-}
+    public function payments()
+    {
+        return $this->hasMany(Payment::class, 'customer_id');
+    }
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isUser()
+    {
+        return $this->role === 'user';
+    }
+
+    public function isPartner()
+    {
+        return $this->role === 'partner';
+    }
 }

@@ -13,6 +13,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware(['auth', 'role:admin'])->group(function () {
+
+    Route::get('/admin/dashboard', function () {
+        return view('admin.dashboard');
+    });
+});
+
+Route::middleware(['auth:sanctum', 'role:partner'])->group(function () {
+
+    // Route::get('/partner/bookings', [BookingController::class, 'index']);
+});
+
+
+Route::middleware(['auth:sanctum', 'role:partner'])->group(function () {
+
+    // Route::get('/partner/bookings', [BookingController::class, 'index']);
+});
+
+Route::middleware(['auth:sanctum', 'role:user'])->group(function () {
+
+    // Route::get('/user/bookings', [BookingController::class, 'index']);
+});
+
+Route::middleware(['auth:sanctum', 'role:user,partner'])->group(function () {
+
+    // Route::get('/chat/rooms', [ChatController::class, 'rooms']);
 });
