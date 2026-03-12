@@ -46,15 +46,6 @@ class User extends Authenticatable
         return $this->hasOne(PartnerProfile::class);
     }
 
-    public function customerOrders()
-    {
-        return $this->hasMany(ServiceOrder::class, 'customer_id');
-    }
-
-    public function partnerOrders()
-    {
-        return $this->hasMany(ServiceOrder::class, 'partner_id');
-    }
 
     public function payments()
     {
